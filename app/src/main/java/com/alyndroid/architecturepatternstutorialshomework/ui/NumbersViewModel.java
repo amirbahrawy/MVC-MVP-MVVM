@@ -7,9 +7,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class NumbersViewModel extends ViewModel {
-    public MutableLiveData<NumberModel> modelMutableLiveData=new MutableLiveData<>();
+    public MutableLiveData<String> modelMutableLiveData=new MutableLiveData<>();
     public void getNumbers(){
         NumberModel nummberModel=new DataBase().getNumbers();
-         modelMutableLiveData.setValue(nummberModel);
+        String result=nummberModel.getFirstNum()*nummberModel.getSecondNum()+"";
+        modelMutableLiveData.setValue(result);
     }
 }

@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
         initView();
+        binding.setViewModel(numbersViewModel);
+        binding.setLifecycleOwner(this);
     }
 
     private void initView() {
@@ -42,13 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //MVVM
         binding.mulButton.setOnClickListener(this);
         numbersViewModel = ViewModelProviders.of(this).get(NumbersViewModel.class);
-        numbersViewModel.modelMutableLiveData.observe(this, new Observer<NumberModel>() {
-            @Override
-            public void onChanged(NumberModel numberModel) {
-                int divResult = numberModel.getFirstNum() * numberModel.getSecondNum();
-                binding.mulResultTextView.setText(divResult+"");
-            }
-        });
 
     }
 
@@ -64,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v==binding.mulButton)
                numbersViewModel.getNumbers();
     }
-
+    //MVP
     @Override
     public void onGetNumbers(NumberModel numberModel) {
         int divResult = numberModel.getFirstNum() / numberModel.getSecondNum();
